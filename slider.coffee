@@ -56,6 +56,7 @@ sliderDirective = ($timeout) ->
     ngModel:      '=?'
     ngModelLow:   '=?'
     ngModelHigh:  '=?'
+    dragEnd:        '&'
   template: '''
     <div class="bar"><div class="selection"></div></div>
     <div class="handle low"></div><div class="handle high"></div>
@@ -160,6 +161,7 @@ sliderDirective = ($timeout) ->
               scope[high] = scope.local[high]
               scope[low] = scope.local[low]
             currentRef = ref
+            scope.dragEnd()
             scope.$apply()
           onMove = (event) ->
             eventX = event.clientX or event.touches?[0].clientX or event.originalEvent?.changedTouches?[0].clientX or 0
