@@ -63,8 +63,8 @@ sliderDirective = ($timeout) ->
     <div class="handle low"></div><div class="handle high"></div>
     <div class="bubble limit low">{{ values.length ? values[floor || 0] : floor }}</div>
     <div class="bubble limit high">{{ values.length ? values[ceiling || values.length - 1] : ceiling }}</div>
-    <div class="bubble value low">{{ values.length ? valueDecorator( {value: values[local.ngModelLow || local.ngModel || 0]} ) : valueDecorator( {value: local.ngModelLow || local.ngModel || 0} ) }}</div>
-    <div class="bubble value high">{{ values.length ? valueDecorator( {value: values[local.ngModelHigh]} ) : valueDecorator( {value: local.ngModelHigh} ) }}</div>'''
+    <div class="bubble value low">{{ values.length ? valueCalculator( {value: values[local.ngModelLow || local.ngModel || 0]} ) : valueCalculator( {value: local.ngModelLow || local.ngModel || 0} ) }}</div>
+    <div class="bubble value high">{{ values.length ? valueCalculator( {value: values[local.ngModelHigh]} ) : valueCalculator( {value: local.ngModelHigh} ) }}</div>'''
   compile: (element, attributes) ->
 
     # Check if it is a range slider
@@ -78,6 +78,10 @@ sliderDirective = ($timeout) ->
     watchables.push high if range
 
     post: (scope, element, attributes) ->
+      # just print the value if no decorator is specified
+      scope.valueCalculator = (value) ->
+        scope.valueDecorator(value) || value?.value
+
       # Get references to template elements
       [bar, minPtr, maxPtr, flrBub, ceilBub, lowBub, highBub] = (angularize(e) for e in element.children())
       selection = angularize bar.children()[0]

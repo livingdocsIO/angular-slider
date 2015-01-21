@@ -101,7 +101,7 @@
         dragEnd: '&',
         valueDecorator: '&'
       },
-      template: '<div class="bar"><div class="selection"></div></div>\n<div class="handle low"></div><div class="handle high"></div>\n<div class="bubble limit low">{{ values.length ? values[floor || 0] : floor }}</div>\n<div class="bubble limit high">{{ values.length ? values[ceiling || values.length - 1] : ceiling }}</div>\n<div class="bubble value low">{{ values.length ? valueDecorator( {value: values[local.ngModelLow || local.ngModel || 0]} ) : valueDecorator( {value: local.ngModelLow || local.ngModel || 0} ) }}</div>\n<div class="bubble value high">{{ values.length ? valueDecorator( {value: values[local.ngModelHigh]} ) : valueDecorator( {value: local.ngModelHigh} ) }}</div>',
+      template: '<div class="bar"><div class="selection"></div></div>\n<div class="handle low"></div><div class="handle high"></div>\n<div class="bubble limit low">{{ values.length ? values[floor || 0] : floor }}</div>\n<div class="bubble limit high">{{ values.length ? values[ceiling || values.length - 1] : ceiling }}</div>\n<div class="bubble value low">{{ values.length ? valueCalculator( {value: values[local.ngModelLow || local.ngModel || 0]} ) : valueCalculator( {value: local.ngModelLow || local.ngModel || 0} ) }}</div>\n<div class="bubble value high">{{ values.length ? valueCalculator( {value: values[local.ngModelHigh]} ) : valueCalculator( {value: local.ngModelHigh} ) }}</div>',
       compile: function(element, attributes) {
         var high, low, range, watchables;
         range = (attributes.ngModel == null) && (attributes.ngModelLow != null) && (attributes.ngModelHigh != null);
@@ -114,6 +114,9 @@
         return {
           post: function(scope, element, attributes) {
             var bar, barWidth, bound, ceilBub, dimensions, e, flrBub, handleHalfWidth, highBub, lowBub, maxOffset, maxPtr, maxValue, minOffset, minPtr, minValue, ngDocument, offsetRange, selection, updateDOM, upper, valueRange, w, _i, _j, _len, _len1, _ref, _ref1;
+            scope.valueCalculator = function(value) {
+              return scope.valueDecorator(value) || (value != null ? value.value : void 0);
+            };
             _ref = (function() {
               var _i, _len, _ref, _results;
               _ref = element.children();

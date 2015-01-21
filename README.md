@@ -3,6 +3,28 @@ angular-slider
 
 Slider directive implementation for AngularJS, without jQuery dependencies. Requires AngularJS v1.1.4 or higher (optional isolate scope bindings support).
 
+### Added in this fork:
+
+- drag-end hook:
+```
+<slider floor="100" ceiling="1000" step="50" precision="2" ng-model="item.cost" drag-end="calculateCostViability()"></slider>
+
+# in your controller
+calculateCostViability: ->
+  # do some crazy calculations
+```
+
+- value decorator (display of printed values):
+
+```
+<slider floor="100" ceiling="1000" step="50" precision="2" ng-model="item.cost" value-decorator="seeThemDollars(value)"></slider>
+
+# in your controller
+seeThemDollars: (value) ->
+  "$#{value}"
+
+```
+
 ### Example:
 
     <ul>
