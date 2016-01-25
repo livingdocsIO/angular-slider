@@ -1,5 +1,5 @@
 {
-  "name": "angular-slider",
+  "name": "@livingdocs/angular-slider",
   "version": "0.2.3",
   "description": "Slider directive implementation for AngularJS, without jQuery dependencies.",
   "main": "slider.js",
